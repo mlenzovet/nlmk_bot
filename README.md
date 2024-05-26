@@ -38,6 +38,16 @@
 ### 3. Разработка прототипа
 
 ## Архитектурная схема
+1. **User**: Пользователь взаимодействует с интерфейсом через Streamlit или Telegram Bot.
+2. **Interface (Streamlit)**: Веб-интерфейс для отображения данных.
+3. **Data Collection (Selenium)**: Модуль для сбора данных с выбранных веб-источников.
+4. **Data Storage (ChromaDB)**: Система для хранения собранных данных.
+5. **Information Retrieval**: Модуль для извлечения релевантной информации из хранилища данных.
+6. **Data Analysis (OpenAI API)**: Анализ данных и генерация текста с помощью OpenAI API.
+7. **Digest Generation (OpenAI API)**: Генерация дайджеста новостей на основе извлеченной и проанализированной информации.
+8. **Display Results (Streamlit)**: Отображение результатов в веб-интерфейсе.
+9. **Display Results (Telegram Bot)**: Отправка результатов через Telegram Bot.
+
 
 ```mermaid
 flowchart TD
@@ -64,15 +74,5 @@ flowchart TD
     DisplayTelegram[Display Results Telegram Bot]
     TelegramBot[Telegram Bot]
 
-```markdown
 
-1. **User**: Пользователь взаимодействует с интерфейсом через Streamlit или Telegram Bot.
-2. **Interface (Streamlit)**: Веб-интерфейс для отображения данных.
-3. **Data Collection (Selenium)**: Модуль для сбора данных с выбранных веб-источников.
-4. **Data Storage (ChromaDB)**: Система для хранения собранных данных.
-5. **Information Retrieval**: Модуль для извлечения релевантной информации из хранилища данных.
-6. **Data Analysis (OpenAI API)**: Анализ данных и генерация текста с помощью OpenAI API.
-7. **Digest Generation (OpenAI API)**: Генерация дайджеста новостей на основе извлеченной и проанализированной информации.
-8. **Display Results (Streamlit)**: Отображение результатов в веб-интерфейсе.
-9. **Display Results (Telegram Bot)**: Отправка результатов через Telegram Bot.
 
