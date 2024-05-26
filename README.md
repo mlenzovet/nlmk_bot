@@ -64,6 +64,7 @@ flowchart TD
     DisplayTelegram[Display Results Telegram Bot]
     TelegramBot[Telegram Bot]
 
+```markdown
 
 1. **User**: Пользователь взаимодействует с интерфейсом через Streamlit или Telegram Bot.
 2. **Interface (Streamlit)**: Веб-интерфейс для отображения данных.
