@@ -39,40 +39,35 @@
 
 ## Архитектурная схема
 1. **User**: Пользователь взаимодействует с интерфейсом через Streamlit или Telegram Bot.
-2. **Interface (Streamlit)**: Веб-интерфейс для отображения данных.
+2. **Interface (Streamlit_Telegram)**: Веб-интерфейс для отображения данных через Streamlit или Telegram Bot.
 3. **Data Collection (Selenium)**: Модуль для сбора данных с выбранных веб-источников.
 4. **Data Storage (ChromaDB)**: Система для хранения собранных данных.
 5. **Information Retrieval**: Модуль для извлечения релевантной информации из хранилища данных.
 6. **Data Analysis (OpenAI API)**: Анализ данных и генерация текста с помощью OpenAI API.
 7. **Digest Generation (OpenAI API)**: Генерация дайджеста новостей на основе извлеченной и проанализированной информации.
-8. **Display Results (Streamlit)**: Отображение результатов в веб-интерфейсе.
-9. **Display Results (Telegram Bot)**: Отправка результатов через Telegram Bot.
 
 
 ```mermaid
 flowchart TD
     User --> Interface
+    
     Interface --> Scraper
+    
     Scraper --> Storage
     Storage --> Retrieval
     Retrieval --> Analysis
     Analysis --> Digest
     Digest --> Interface
-    Digest --> TelegramBot
     
-    Analysis --> DisplayStreamlit
-    Analysis --> DisplayTelegram
     
     User[User]
-    Interface[Interface Streamlit]
+    Interface[Interface Streamlit_Telegram]
     Scraper[Data Collection Selenium]
     Storage[Data Storage ChromaDB]
     Retrieval[Information Retrieval]
-    Analysis[Data Analysis OpenAI API]
-    Digest[Digest Generation OpenAI API]
-    DisplayStreamlit[Display Results Streamlit]
-    DisplayTelegram[Display Results Telegram Bot]
-    TelegramBot[Telegram Bot]
+    Analysis[Data Analysis OpenAI_API]
+    Digest[Digest Generation OpenAI_API]
+
 
 
 
