@@ -7,8 +7,13 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AlternativeMenu: typeof import('./components/AlternativeMenu.vue')['default']
+    AppSidebar: typeof import('./components/AppSidebar.vue')['default']
     CustomIframe: typeof import('./components/CustomIframe.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    RunButton: typeof import('./components/RunButton.vue')['default']
+    SmartFAB: typeof import('./components/SmartFAB.vue')['default']
+    WorkInProgress: typeof import('./components/WorkInProgress.vue')['default']
   }
 }
