@@ -1,0 +1,52 @@
+name: Deploy frontend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - frontend/**
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          check-latest: true
+          cache-dependency-path: frontend/package.json
+      - name: Restore cached dependencies
+        id: cache-deps-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: frontend/node_modules
+          key: ${{ runner.os }}-deps
+      - name: Install
+        run: npm install
+      - name: Cache dependencies
+        id: cache-deps-save
+        uses: actions/cache/save@v4
+        with:
+          path: frontend/node_modules
+          key: ${{ steps.cache-deps-restore.outputs.cache-primary-key }}
+      - name: Build
+        run: npm run build
+        env:
+          VITE_LANG_SMITH_URL: ${{ vars.LANG_SMITH_URL }}
+          VITE_GOOGLE_SHEETS_URL: ${{ vars.GOOGLE_SHEETS_URL }}
+          VITE_DIGEST_TEMPLATE_EDIT_URL: ${{ vars.DIGEST_TEMPLATE_EDIT_URL }}
+      - name: Deploy
+        uses: nekitcorp/yandex-storage-website-action@v2
+        with:
+          access-key-id: ${{ secrets.FRONTEND_DEPLOY_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.FRONTEND_DEPLOY_SECRET_ACCESS_KEY }}
+          bucket: ${{ secrets.BUCKET }}
+          working-directory: frontend/dist
+          clear: true
