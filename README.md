@@ -1,3 +1,43 @@
+## API Документация
+
+[Посмотреть документацию API](http://45.133.178.134:35474/docs)
+
+## Методы
+
+### `/run_scrape`
+Запускает выполнение ноутбуков, связанных со сбором данных. Этот метод работает с следующей таблицей:
+[Google Sheets - Таблица сбора данных](https://docs.google.com/spreadsheets/d/1BA1nioQqc048FFvKXcpP5VqL_73kXNCcSx0m-jhI2MQ/edit?gid=0#gid=0)
+- **0 source**: Источники для парсинга
+- **1 rss parse**: Сюда парсятся RSS-источники
+- **2 ai parse st1**: Сюда парсятся сайты целиком
+- **3 ai parse st2**: LLM-экстракция новостей из полностью спарсенных сайтов
+  - Промпт: [LLM Extraction Prompt](https://smith.langchain.com/hub/mlenparrot/nlmk_aiparse)
+- **4 final list for rate**: Отфильтрованный список по сегодняшней дате
+
+### `/run_grade`
+Запускает выполнение ноутбука, связанного с оценкой новостей. Этот метод работает с следующей таблицей:
+[Google Sheets - Таблица оценки новостей](https://docs.google.com/spreadsheets/d/1cIB0yjbP-uInz7k0rs7zRruyct7C3Cks3P7DUGZTFlc/edit?gid=1994196678#gid=1994196678)
+- Рейтинги извлекаются из `final list for rate` и ранжируются по заданным критериям:
+  - Настройки критериев: [Настройки критериев](https://smith.langchain.com/hub/mlenparrot/nlmk_summary)
+
+### `/run_summarization`
+Запускает выполнение ноутбука, отвечающего за суммаризацию новостей. Этот метод работает с следующей таблицей:
+[Google Sheets - Таблица суммаризации новостей](https://docs.google.com/spreadsheets/d/1cIB0yjbP-uInz7k0rs7zRruyct7C3Cks3P7DUGZTFlc/edit?gid=1994196678#gid=1994196678)
+- Переведенные и сжатые новости для дайджеста
+- Настройки правил: [Настройки правил](https://smith.langchain.com/hub/mlenparrot/nlmk_grade)
+
+### `/run_digest_generation`
+Запускает выполнение ноутбука для генерации дайджеста новостей. Шаблон настраивается здесь:
+[Google Docs - Шаблон дайджеста](https://docs.google.com/document/d/1Rtfhw54kpkmuPmA7xpt9CVx5J_70kMiL636MQzl3dck/edit)
+- Дайджест возвращается прямо в этот шаблон.
+
+### `/progress/{step}`
+Получает прогресс выполнения для конкретного этапа.
+
+
+
+
+
 # Задача
 
 Разработать прототип, который будет автоматически собирать и анализировать информацию с выбранных сайтов, формировать дайджест новостей и выделять самую важную информацию для ИТ подразделения.
