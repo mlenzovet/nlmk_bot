@@ -27,8 +27,6 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_LANG_SMITH_URL: "https://smith.langchain.com/hub/mlenparrot/nlmk_grade"
-          VITE_GOOGLE_SHEETS_URL: "https://docs.google.com/spreadsheets/d/1Fdfk6PJuE0zAVQpaH6dv3b7SkNByn8AAdzrEDL3EUUQ/edit#gid=1958678976"
           VITE_DIGEST_TEMPLATE_EDIT_URL: "https://www.overleaf.com/read/vyqdnhjfjnwh#4c8ad1"
       - name: Deploy
         uses: nekitcorp/yandex-storage-website-action@v1

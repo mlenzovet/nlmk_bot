@@ -19,6 +19,16 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
-    '/table': RouteRecordInfo<'/table', '/table', Record<never, never>, Record<never, never>>,
+    '/data_sources': RouteRecordInfo<'/data_sources', '/data_sources', Record<never, never>, Record<never, never>>,
+    '/digest_preview': RouteRecordInfo<'/digest_preview', '/digest_preview', Record<never, never>, Record<never, never>>,
+    '/llm_parser': RouteRecordInfo<'/llm_parser', '/llm_parser', Record<never, never>, Record<never, never>>,
+    '/ranked_table': RouteRecordInfo<'/ranked_table', '/ranked_table', Record<never, never>, Record<never, never>>,
+    '/ranking_limit': RouteRecordInfo<'/ranking_limit', '/ranking_limit', Record<never, never>, Record<never, never>>,
+    '/ranking_llm_settings': RouteRecordInfo<'/ranking_llm_settings', '/ranking_llm_settings', Record<never, never>, Record<never, never>>,
+    '/subscription_settings': RouteRecordInfo<'/subscription_settings', '/subscription_settings', Record<never, never>, Record<never, never>>,
+    '/summarization_limits': RouteRecordInfo<'/summarization_limits', '/summarization_limits', Record<never, never>, Record<never, never>>,
+    '/summarization_llm_settings': RouteRecordInfo<'/summarization_llm_settings', '/summarization_llm_settings', Record<never, never>, Record<never, never>>,
+    '/summarized_news': RouteRecordInfo<'/summarized_news', '/summarized_news', Record<never, never>, Record<never, never>>,
+    '/time_boundaries': RouteRecordInfo<'/time_boundaries', '/time_boundaries', Record<never, never>, Record<never, never>>,
   }
 }

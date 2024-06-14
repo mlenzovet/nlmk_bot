@@ -1,11 +1,8 @@
 <template>
-    <custom-iframe
-        name="Настройки LLM"
-        :url="LANG_SMITH_URL"
-    />
+    <div/>
 </template>
 
 <script setup lang="ts">
-    import { LANG_SMITH_URL } from '@/utils/env-variable-loader';
-    import '@/components/CustomIframe.vue'
+const router = useRouter();
+router.push({name: '/data_sources'})
 </script>

@@ -4,8 +4,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build-test": "vite build --mode do-not-commit",
     "preview": "vite preview",
-    "lint": "eslint . --fix --ignore-path .gitignore"
+    "lint": "eslint . --fix --ignore-path ../.gitignore",
+    "generate-api": "swagger-typescript-api -p '../backend/api-scheme.yaml' -o generated-api"
   },
   "dependencies": {
     "@mdi/font": "6.2.95",
@@ -15,6 +17,7 @@
     "vuetify": "^3.5.8"
   },
   "devDependencies": {
+    "swagger-typescript-api": "^13.0.5",
     "@babel/types": "^7.24.0",
     "@types/node": "^20.11.25",
     "@vitejs/plugin-vue": "^5.0.4",
