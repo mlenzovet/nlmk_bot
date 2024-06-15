@@ -1,3 +1,10 @@
-export const LANG_SMITH_URL: string = import.meta.env.VITE_LANG_SMITH_URL || 'https://smith.langchain.com';
-export const GOOGLE_SHEETS_URL: string = import.meta.env.VITE_GOOGLE_SHEETS_URL || 'https://spreadsheets.google.com';
+export const PARSING_SITES_TABLE_URL: string = import.meta.env.VITE_PARSING_SITES_TABLE_URL || 'https://spreadsheets.google.com';
+export const EXTRACTED_NEWS_TABLE_URL: string = import.meta.env.VITE_EXTRACTED_NEWS_TABLE_URL || 'https://spreadsheets.google.com';
 export const DIGEST_TEMPLATE_EDIT_URL: string = import.meta.env.VITE_DIGEST_TEMPLATE_EDIT_URL || 'https://overleaf.com';
+export const RANKED_NEWS_TABLE_URL: string = import.meta.env.VITE_RANKED_NEWS_TABLE_URL || 'https://spreadsheets.google.com';
+export const SUMMARIZED_NEWS_TABLE_URL: string = import.meta.env.VITE_SUMMARIZED_NEWS_TABLE_URL || 'https://spreadsheets.google.com';
+export const BAD_PARSING_SITES_TABLE_URL: string = import.meta.env.VITE_BAD_PARSING_SITES_TABLE_URL || 'https://spreadsheets.google.com';
+export const RANKED_BAD_NEWS_TABLE_URL: string = import.meta.env.VITE_RANKED_BAD_NEWS_TABLE_URL || 'https://spreadsheets.google.com';
+export const PARSING_LANG_SMITH_URL: string = import.meta.env.VITE_PARSING_LANG_SMITH_URL || 'https://smith.langchain.com';
+export const RANKING_LANG_SMITH_URL: string = import.meta.env.VITE_RANKING_LANG_SMITH_URL || 'https://smith.langchain.com';
+export const SUMMARIZING_LANG_SMITH_URL: string = import.meta.env.VITE_SUMMARIZING_LANG_SMITH_URL || 'https://smith.langchain.com';

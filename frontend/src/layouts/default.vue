@@ -1,39 +1,32 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer">
-      <v-list>
-        <v-list-item
-          v-for="item in menu"
-          :key="item.title"
-          :title="!item.href && item.title"
-          :to="item.to"
-          :href="item.href"
-          :target="item.target"
-        >
-          <div class="text-decoration-underline" v-if="item.href">
-            {{item.title}}
-          </div>
-          <template #prepend>
-          <v-icon :icon="item.icon"/>
-          </template>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-        <v-app-bar>
+      <app-sidebar
+        v-model="drawer"
+      />
+      <v-app-bar>
       <template #prepend>
-        <v-img height="100%" width="4vw" src="@/assets/logo.svg" />
+        <v-img height="100%" class="hidden-sm-and-down" width="4vw" src="@/assets/logo.svg"/>
         <v-app-bar-nav-icon @click.stop="toggleDrawer" />
+      </template>
+      <template #append>
+      <alternative-menu/>
+      <run-button/>
       </template>
     </v-app-bar>
     <v-main>
       <router-view />
     </v-main>
+    <smart-f-a-b/>
   </v-app>
 </template>
 
 <script lang="ts" setup>
 import { ref, Ref } from "vue";
 import {DIGEST_TEMPLATE_EDIT_URL} from '@/utils/env-variable-loader';
+import AppSidebar from '@/components/AppSidebar.vue';
+import AlternativeMenu from "../components/AlternativeMenu.vue";
+import SmartFAB from "../components/SmartFAB.vue";
+import RunButton from "../components/RunButton.vue";
 const drawer: Ref<boolean> = ref(false);
 const menu = [
   {

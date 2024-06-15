@@ -1,0 +1,209 @@
+openapi: 3.0.0
+info:
+  title: BanzAI API
+  version: 1.0.0
+servers:
+- url: https://d5d9nn492nbmsndr18m7.apigw.yandexcloud.net
+- url: https://api.banz-ai.ru
+paths:
+  /recipients:
+    x-yc-apigateway-cors:
+      $ref: "#/components/x-yc-apigateway-cors-rules/cors-rule"
+    get:
+      x-yc-apigateway-integration:
+        type: cloud_ydb
+        action: Scan
+        database: "${var.YDB_ADDRESS}"
+        table_name: recipients
+        exclusive_start_key: '{"email": "{search}"}'
+      operationId: getRecipients
+      parameters:
+        - name: search
+          in: query
+          explode: true
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipient'
+          description: recipients
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: error
+    post:
+      x-yc-apigateway-integration:
+        type: cloud_ydb
+        action: PutItem
+        database: "${var.YDB_ADDRESS}"
+        table_name: recipients
+      operationId: addRecipient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipient'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+          description: recipients
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: error
+    delete:
+      x-yc-apigateway-integration:
+        type: cloud_ydb
+        action: DeleteItem
+        database: "${var.YDB_ADDRESS}"
+        table_name: recipients
+        key: '{"email": "{delete_email}"}'
+      operationId: deleteRecipient
+      parameters:
+        - name: delete_email
+          in: query
+          explode: true
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+          description: Deleted successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: error
+  /send_mail:
+    x-yc-apigateway-cors:
+      $ref: "#/components/x-yc-apigateway-cors-rules/cors-rule"
+    post:
+      operationId: sendMail
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: "${var.MAIL_SENDER_FUNCTION_ID}"
+        service_account_id: "${var.MAIL_SENDER_SERVICE_ACCOUNT_ID}"
+  /run_grade:
+    x-yc-apigateway-cors:
+      $ref: "#/components/x-yc-apigateway-cors-rules/cors-rule"
+    get:
+      x-yc-apigateway-integration:
+        type: http
+        url: "${var.RUN_GRADE_URL}"
+        timeouts:
+          connect: 0.5
+          read: 5
+  /run_rss:
+    x-yc-apigateway-cors:
+      $ref: "#/components/x-yc-apigateway-cors-rules/cors-rule"
+    get:
+      x-yc-apigateway-integration:
+        type: http
+        url: "${var.RUN_RSS_URL}"
+        timeouts:
+          connect: 0.5
+          read: 5
+  /run_scrape:
+    x-yc-apigateway-cors:
+      $ref: "#/components/x-yc-apigateway-cors-rules/cors-rule"
+    get:
+      x-yc-apigateway-integration:
+        type: http
+        url: "${var.RUN_SCRAPE_URL}"
+        timeouts:
+          connect: 0.5
+          read: 5
+  /run_digest_generation:
+    x-yc-apigateway-cors:
+      $ref: "#/components/x-yc-apigateway-cors-rules/cors-rule"
+    get:
+      x-yc-apigateway-integration:
+        type: http
+        url: "${var.RUN_DIGEST_GENERATION_URL}"
+        timeouts:
+          connect: 0.5
+          read: 5
+  /run_summarization:
+    x-yc-apigateway-cors:
+      $ref: "#/components/x-yc-apigateway-cors-rules/cors-rule"
+    get:
+      x-yc-apigateway-integration:
+        type: http
+        url: "${var.RUN_SUMMARIZAITION_URL}"
+        timeouts:
+          connect: 0.5
+          read: 5
+components:
+  schemas:
+    Recipient:
+      properties:
+        email:
+          type: string
+      required:
+        - email
+      type: object
+    Error:
+      properties:
+        message:
+          type: string
+      required:
+        - message
+      type: object
+  x-yc-apigateway-cors-rules:
+      cors-rule:
+        origin: '*'
+        methods:
+          - GET
+          - POST
+          - DELETE
+        credentials: true
+        maxAge: 3600
+        optionsSuccessStatus: 204
+x-yc-apigateway:
+  variables:
+    YDB_ADDRESS:
+      default: ''
+      type: string
+    YDB_SERVICE_ACCOUNT_ID:
+      default: ''
+      type: string
+    MAIL_SENDER_FUNCTION_ID:
+      default: ''
+      type: string
+    MAIL_SENDER_SERVICE_ACCOUNT_ID:
+      default: ''
+      type: string
+    RUN_GRADE_URL:
+      default: ''
+      type: string
+    RUN_RSS_URL:
+      default: ''
+      type: string
+    RUN_SCRAPE_URL:
+      default: ''
+      type: string
+    RUN_DIGEST_GENERATION_URL:
+      default: ''
+      type: string
+    RUN_SUMMARIZAITION_URL:
+      default: ''
+      type: string
+  service_account_id: "${var.YDB_SERVICE_ACCOUNT_ID}"
