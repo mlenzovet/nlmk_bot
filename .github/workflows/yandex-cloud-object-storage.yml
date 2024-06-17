@@ -27,12 +27,19 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_DIGEST_TEMPLATE_EDIT_URL: "https://www.overleaf.com/read/vyqdnhjfjnwh#4c8ad1"
+          VITE_DIGEST_TEMPLATE_EDIT_URL: ${{ vars.DIGEST_TEMPLATE_EDIT_URL }}
+          VITE_PARSING_SITES_TABLE_URL: ${{ vars.PARSING_SITES_TABLE_URL }}
+          VITE_EXTRACTED_NEWS_TABLE_URL: ${{ vars.EXTRACTED_NEWS_TABLE_URL }}
+          VITE_RANKED_NEWS_TABLE_URL: ${{ vars.RANKED_NEWS_TABLE_URL }}
+          VITE_SUMMARIZED_NEWS_TABLE_URL: ${{ vars.SUMMARIZED_NEWS_TABLE_URL }}
+          VITE_RANKING_LANG_SMITH_URL: ${{ vars.RANKING_LANG_SMITH_URL }}
+          VITE_PARSING_LANG_SMITH_URL: ${{ vars.PARSING_LANG_SMITH_URL }}
+          VITE_SUMMARIZING_LANG_SMITH_URL: ${{ vars.SUMMARIZING_LANG_SMITH_URL }}
       - name: Deploy
         uses: nekitcorp/yandex-storage-website-action@v1
         with:
-          accessKeyId: ${{ secrets.ACCESS_KEY_ID }}
-          secretAccessKey: ${{ secrets.SECRET_ACCESS_KEY }}
-          bucket: ${{ secrets.BUCKET }}
+          accessKeyId: ${{ secrets.FRONTEND_DEPLOY_ACCESS_KEY_ID }}
+          secretAccessKey: ${{ secrets.FRONTEND_DEPLOY_SECRET_ACCESS_KEY }}
+          bucket: ${{ secrets.FRONTEND_BUCKET }}
           path: "./dist"
           clear: true
